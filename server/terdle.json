@@ -1,0 +1,150 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "displayName": null,
+      "profileImageUrl": null,
+      "shortBio": null,
+      "authorities": [
+        {
+          "name": "ROLE_ADMIN"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "username": "job_coach",
+      "displayName": "Imani",
+      "profileImageUrl": "https://source.boringavatars.com/bauhaus/80/job_coach",
+      "shortBio": "Career coach, specializing in working with students fresh out of college and career changers, with a special interest in technology roles.",
+      "authorities": [
+        {
+          "name": "ROLE_USER"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "username": "newbie_coder",
+      "displayName": null,
+      "profileImageUrl": "https://source.boringavatars.com/beam/80/newbie_coder",
+      "shortBio": "New parent turned coder, with a passion for basketball, stats, and a good laugh.",
+      "authorities": [
+        {
+          "name": "ROLE_USER"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "username": "tom",
+      "displayName": null,
+      "profileImageUrl": null,
+      "shortBio": null,
+      "authorities": [
+        {
+          "name": "ROLE_ADMIN"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "username": "troublemaker",
+      "displayName": null,
+      "profileImageUrl": null,
+      "shortBio": null,
+      "authorities": [
+        {
+          "name": "ROLE_USER"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "username": "user",
+      "displayName": null,
+      "profileImageUrl": null,
+      "shortBio": null,
+      "authorities": [
+        {
+          "name": "ROLE_USER"
+        }
+      ]
+    }
+  ],
+  "games":
+  [
+    {
+      "gameId": 72,
+      "word": "quark",
+      "date": "2023-10-17",
+      "type": "RANDOM"
+    },
+    {
+      "gameId": 73,
+      "word": "elder",
+      "date": "2023-10-17",
+      "type": "DAILY"
+    },
+    {
+      "gameId": 74,
+      "word": "ninth",
+      "date": "2023-10-17",
+      "type": "RANDOM"
+    }
+  ],
+
+  "userGames" : [
+    {
+      "gameId": 72,
+      "word": "quark",
+      "date": "2023-10-17",
+      "type": "RANDOM",
+      "userId": 5,
+      "guesses": [
+        "trick",
+        "quark"
+      ],
+      "success": true
+    },
+    {
+      "gameId": 73,
+      "word": "elder",
+      "date": "2023-10-17",
+      "type": "DAILY",
+      "userId": 5,
+      "guesses": [
+        "hello",
+        "elder"
+      ],
+      "success": true
+    },
+    {
+      "gameId": 73,
+      "word": "elder",
+      "date": "2023-10-17",
+      "type": "DAILY",
+      "userId": 6,
+      "guesses": [
+        "slide",
+        "plaid",
+        "elder"
+      ],
+      "success": true
+    },
+    {
+      "gameId": 74,
+      "word": "ninth",
+      "date": "2023-10-17",
+      "type": "RANDOM",
+      "userId": 6,
+      "guesses": [
+        "frost",
+        "think",
+        "ninth"
+      ],
+      "success": true
+    }
+  ]
+}

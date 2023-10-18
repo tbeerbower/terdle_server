@@ -1,0 +1,4 @@
+{
+  "/users/:userId/games": "/userGames?userId=:userId",
+  "/users/:userId/games/:gameId": "/userGames?userId=:userId&gameId=:gameId"
+}
