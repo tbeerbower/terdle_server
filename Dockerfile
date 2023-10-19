@@ -13,5 +13,7 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 FROM openjdk:11-jre-slim
 COPY --from=build /home/app/target/terdle-1.0-SNAPSHOT.jar /usr/local/lib/terdle.jar
+COPY --from=build /home/app/src/main/resources/words.txt /app/resources/words.txt
+COPY --from=build /home/app/src/main/resources/guesses.txt /app/resources/guesses.txt
 EXPOSE 9000
 ENTRYPOINT ["java","-jar","/usr/local/lib/terdle.jar"]

@@ -11,9 +11,10 @@ import java.util.Set;
 
 public class Word {
 
-    private static final Map<Integer, String> words = WordReader.getWords(new File("src/main/resources/words.txt"));
+    private static String RESOURCE_DIR = System.getenv("RESOURCE_DIR");
+    private static final Map<Integer, String> words = WordReader.getWords(new File(RESOURCE_DIR + "/words.txt"));
     private static final Set<String> guesses = WordReader.getGuesses(
-            new File("src/main/resources/words.txt"), new File("src/main/resources/guesses.txt"));
+            new File(RESOURCE_DIR + "/words.txt"), new File(RESOURCE_DIR + "/guesses.txt"));
     public static final Random RANDOM = new Random();
 
     public static String getDailyWord() {
