@@ -28,18 +28,10 @@ public class Words {
     public static final Random RANDOM = new Random();
 
     /**
-     * @return the word for today's date; a given date should always return the same word
+     * @return a word based on the given game type and date
      */
-    public static String getDailyWord() {
-        LocalDate now = LocalDate.now(ZoneId.of("GMT"));
-        return getWord(Long.valueOf(now.toEpochDay() % words.size()).intValue());
-    }
-
-    /**
-     * @return a word based on the given game type
-     */
-    public static String getWord(Game.Type type) {
-        return type == Game.Type.DAILY ? getDailyWord() : getWord(RANDOM.nextInt(words.size()));
+    public static String getWord(Game.Type type, LocalDate date) {
+        return type == Game.Type.DAILY ? getDailyWord(date) : getWord(RANDOM.nextInt(words.size()));
     }
 
     /**
@@ -60,6 +52,10 @@ public class Words {
         return word != null && word.length() == 5 && set.contains(word);
     }
 
+    private static String getDailyWord(LocalDate date) {
+        long epoch = date == null ? LocalDate.now(ZoneId.of("GMT")).toEpochDay() : date.toEpochDay();
+        return getWord(Long.valueOf(epoch % words.size()).intValue());
+    }
     private static String getWord(int index) {
         Iterator<String> iter = words.iterator();
         for (int i = 0; i < index; i++) {

@@ -79,8 +79,8 @@ public class GameController {
     public Game createGame(@RequestBody Game newGame) {
         try {
             Game.Type type = newGame.getType();
-            String word = newGame.getWord() == null ? Words.getWord(type) : newGame.getWord();
             LocalDate date = newGame.getDate() == null ? LocalDate.now(ZoneId.of("GMT")) : newGame.getDate();
+            String word = newGame.getWord() == null ? Words.getWord(type, date) : newGame.getWord();
             return gameDao.createGame(new Game(0, word, date, type));
         }
         catch (DaoException e) {
