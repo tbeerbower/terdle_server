@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Game;
-import com.techelevator.utils.Word;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

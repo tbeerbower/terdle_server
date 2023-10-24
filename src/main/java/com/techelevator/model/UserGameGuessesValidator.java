@@ -1,6 +1,6 @@
 package com.techelevator.model;
 
-import com.techelevator.utils.Word;
+import com.techelevator.utils.Words;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -10,7 +10,7 @@ public class UserGameGuessesValidator implements ConstraintValidator<ValidUserGa
     @Override
     public boolean isValid(List<String> guesses, ConstraintValidatorContext constraintValidatorContext) {
         for (String word : guesses) {
-            if (!Word.validGuess(word)) {
+            if (!Words.validGuess(word)) {
                 return false;
             }
         }

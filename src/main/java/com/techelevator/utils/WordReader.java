@@ -3,29 +3,17 @@ package com.techelevator.utils;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Utility class to read in a set of words.
+ */
 public class WordReader {
 
-    public static Map<Integer, String> getWords(File wordsFile) {
-
-        Map<Integer, String> words = new HashMap<>();
-        int count = 0;
-
-        try (Scanner scanner = new Scanner(new FileInputStream(wordsFile))) {
-
-            while (scanner.hasNext()) {
-
-                String word = scanner.next();
-                if (isValidWord(word)) {
-                    words.put(count++, word);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return words;
-    }
-
-    public static Set<String> getGuesses(File... wordsFiles) {
+    /**
+     * Read the words from the given files and return a set of all the valid words
+     * @param wordsFiles one or more files containing words to add
+     * @return the set of valid words
+     */
+    public static Set<String> getWords(File... wordsFiles) {
 
         Set<String> guesses = new HashSet<>();
 
@@ -45,41 +33,6 @@ public class WordReader {
         }
         return guesses;
     }
-    public static void processFiles(File wordsFolder, File wordsFile) {
-
-        Set<String> words = new HashSet<>();
-
-
-        for (File file : wordsFolder.listFiles()) {
-
-
-            if (!file.isDirectory()) {
-                try (Scanner scanner = new Scanner(new FileInputStream(file))) {
-
-
-                    while (scanner.hasNext()) {
-
-                        String word = scanner.next();
-                        if (isValidWord(word)) {
-                            words.add(word);
-                        }
-                    }
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-        List<String> wordList = new ArrayList<>(words);
-        Collections.sort(wordList);
-        try (PrintWriter writer = new PrintWriter(wordsFile)) {
-            for (String word : wordList) {
-                writer.println(word);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private static boolean isValidWord(String word) {
         if (word.length() == 5) {
@@ -92,7 +45,4 @@ public class WordReader {
         }
         return false;
     }
-
-
-
 }
