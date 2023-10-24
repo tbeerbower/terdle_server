@@ -43,8 +43,17 @@ public class JdbcGameDao implements GameDao {
     }
 
     @Override
+    public List<Game> getGamesByType(Game.Type type) {
+        return jdbcTemplate.query("SELECT * FROM game WHERE type =?", MAPPER, type.ordinal());
+    }
+
+    @Override
     public List<Game> getGamesByDateAndType(LocalDate date, Game.Type type) {
         return jdbcTemplate.query("SELECT * FROM game WHERE game_date = ? AND type =?", MAPPER, date, type.ordinal());
+    }
+    @Override
+    public List<Game> getGamesByWordAndType(String word, Game.Type type) {
+        return jdbcTemplate.query("SELECT * FROM game WHERE word = ? AND type =?", MAPPER, word, type.ordinal());
     }
 
     @Override

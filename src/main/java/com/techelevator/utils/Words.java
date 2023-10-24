@@ -1,10 +1,6 @@
 package com.techelevator.utils;
 
-import com.techelevator.model.Game;
-
 import java.io.File;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
@@ -27,11 +23,25 @@ public class Words {
     /** Random number generator */
     public static final Random RANDOM = new Random();
 
+
+
+    /**
+     * @param attempts the number of times to try to find an unused word
+     * @return attempt to get a random word that doesn't occur in the given set of used words
+     */
+    public static String getUnusedWord(Set<String> usedWords, int attempts) {
+        String word = getWord();
+        while (usedWords.contains(word) && attempts-- > 0) {
+            word = getWord();
+        }
+        return word;
+    }
+
     /**
      * @return a word based on the given game type and date
      */
-    public static String getWord(Game.Type type, LocalDate date) {
-        return type == Game.Type.DAILY ? getDailyWord(date) : getWord(RANDOM.nextInt(words.size()));
+    public static String getWord() {
+        return getWord(RANDOM.nextInt(words.size()));
     }
 
     /**
@@ -52,10 +62,6 @@ public class Words {
         return word != null && word.length() == 5 && set.contains(word);
     }
 
-    private static String getDailyWord(LocalDate date) {
-        long epoch = date == null ? LocalDate.now(ZoneId.of("GMT")).toEpochDay() : date.toEpochDay();
-        return getWord(Long.valueOf(epoch % words.size()).intValue());
-    }
     private static String getWord(int index) {
         Iterator<String> iter = words.iterator();
         for (int i = 0; i < index; i++) {
