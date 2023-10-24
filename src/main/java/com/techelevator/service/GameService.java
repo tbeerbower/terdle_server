@@ -4,7 +4,6 @@ import com.techelevator.dao.GameDao;
 import com.techelevator.dao.UserGameDao;
 import com.techelevator.model.Game;
 import com.techelevator.model.UserGame;
-import com.techelevator.utils.Word;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

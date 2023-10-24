@@ -3,10 +3,8 @@ package com.techelevator.controller;
 import com.techelevator.dao.GameDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Game;
-import com.techelevator.model.User;
-import com.techelevator.utils.Word;
+import com.techelevator.utils.Words;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,8 +79,8 @@ public class GameController {
     public Game createGame(@RequestBody Game newGame) {
         try {
             Game.Type type = newGame.getType();
-            String word = newGame.getWord() == null ? Word.getWord(type) : newGame.getWord();
             LocalDate date = newGame.getDate() == null ? LocalDate.now(ZoneId.of("GMT")) : newGame.getDate();
+            String word = newGame.getWord() == null ? Words.getWord(type, date) : newGame.getWord();
             return gameDao.createGame(new Game(0, word, date, type));
         }
         catch (DaoException e) {
