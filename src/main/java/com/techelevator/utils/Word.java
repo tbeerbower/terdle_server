@@ -6,12 +6,13 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
 public class Word {
 
-    private static String RESOURCE_DIR = System.getenv("RESOURCE_DIR");
+    private static final String RESOURCE_DIR = Optional.of(System.getenv("RESOURCE_DIR")).orElse("src/main/resources");
     private static final Map<Integer, String> words = WordReader.getWords(new File(RESOURCE_DIR + "/words.txt"));
     private static final Set<String> guesses = WordReader.getGuesses(
             new File(RESOURCE_DIR + "/words.txt"), new File(RESOURCE_DIR + "/guesses.txt"));
