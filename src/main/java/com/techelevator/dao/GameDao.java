@@ -28,6 +28,14 @@ public interface GameDao {
     Game getGameById(int gameId);
 
     /**
+     * Get all games from the datastore with the specified type.
+     *
+     * @param type The type of the games to return.
+     * @return List of all matching Game objects, or an empty list if no matching Games are found.
+     */
+    List<Game> getGamesByType(Game.Type type);
+
+    /**
      * Get all games from the datastore with the specified date and type.
      *
      * @param date The date of the games to return.
@@ -35,6 +43,15 @@ public interface GameDao {
      * @return List of all matching Game objects, or an empty list if no matching Games are found.
      */
     List<Game> getGamesByDateAndType(LocalDate date, Game.Type type);
+
+    /**
+     * Get all games from the datastore with the specified word and type.
+     *
+     * @param word The word of the games to return.
+     * @param type The type of the games to return.
+     * @return List of all matching Game objects, or an empty list if no matching Games are found.
+     */
+    List<Game> getGamesByWordAndType(String word, Game.Type type);
 
     /**
      * Adds a new game to the datastore.

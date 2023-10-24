@@ -51,30 +51,22 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-
         try {
-            users = userDao.getUsers();
+            return userDao.getUsers();
         }
         catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-
-        return users;
     }
 
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public User getById(@PathVariable int userId, Principal principal) {
-        User user = null;
-
         try {
-            user = userDao.getUserById(userId);
+            return userDao.getUserById(userId);
         }
         catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-
-        return user;
     }
 
     @RequestMapping(path = "", method = RequestMethod.PUT)

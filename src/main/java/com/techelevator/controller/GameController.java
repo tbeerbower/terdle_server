@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.GameDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Game;
+import com.techelevator.service.GameService;
 import com.techelevator.utils.Words;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +25,11 @@ import java.util.List;
 public class GameController {
 
     private GameDao gameDao;
+    private GameService gameService;
 
-    public GameController(GameDao gameDao) {
+    public GameController(GameDao gameDao, GameService gameService) {
         this.gameDao = gameDao;
+        this.gameService = gameService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -41,16 +44,12 @@ public class GameController {
 
     @RequestMapping(path = "/{gameId}", method = RequestMethod.GET)
     public Game getGameById(@PathVariable int gameId, Principal principal) {
-        Game game = null;
-
         try {
-            game = gameDao.getGameById(gameId);
+            return gameDao.getGameById(gameId);
         }
         catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-
-        return game;
     }
 
     @RequestMapping(path = "/today", method = RequestMethod.GET)
@@ -80,8 +79,8 @@ public class GameController {
         try {
             Game.Type type = newGame.getType();
             LocalDate date = newGame.getDate() == null ? LocalDate.now(ZoneId.of("GMT")) : newGame.getDate();
-            String word = newGame.getWord() == null ? Words.getWord(type, date) : newGame.getWord();
-            return gameDao.createGame(new Game(0, word, date, type));
+            String word = newGame.getWord() == null ? Words.getWord() : newGame.getWord();
+            return gameService.createGame(new Game(0, word, date, type));
         }
         catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
