@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Words {
     /** The directory that contains the words files */
-    private static final String RESOURCE_DIR = Optional.of(System.getenv("RESOURCE_DIR")).orElse("src/main/resources");
+    private static final String RESOURCE_DIR = Optional.ofNullable(System.getenv("RESOURCE_DIR")).orElse("src/main/resources");
 
     /** The set of words that can be used for a game */
     private static final Set<String> words = WordReader.getWords(new File(RESOURCE_DIR + "/words.txt"));
