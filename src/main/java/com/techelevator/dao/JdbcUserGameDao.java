@@ -88,7 +88,7 @@ public class JdbcUserGameDao implements UserGameDao {
     }
 
     @Override
-    public UserGame updateUserGame(int userId, int gameId, UserGame modifiedUserGame, boolean success) {
+    public UserGame updateUserGame(int userId, int gameId, UserGame modifiedUserGame) {
         String sql = "UPDATE user_game SET guesses  = ?, " +
                 "guess1 = ?, guess2 = ?, guess3 = ?, guess4 = ?, guess5 = ?, guess6 = ?, success = ? " +
                 "WHERE user_id = ? AND game_id = ?";
@@ -102,7 +102,7 @@ public class JdbcUserGameDao implements UserGameDao {
                 guesses > 3 ? guessList.get(3) : null,
                 guesses > 4 ? guessList.get(4) : null,
                 guesses > 5 ? guessList.get(5) : null,
-                success, userId, gameId);
+                modifiedUserGame.isSuccess(), userId, gameId);
         return rowsUpdated == 1 ? getUserGameByUserIdAndGameId(userId, gameId) : null;
     }
 }

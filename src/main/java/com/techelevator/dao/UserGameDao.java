@@ -53,8 +53,7 @@ public interface UserGameDao {
      * Updates the user-game information.
      *
      * @param modifiedUserGame the user-game data to update
-     * @param success
      * @return the updated UserGame object
      */
-    UserGame updateUserGame(int userId, int gameId, UserGame modifiedUserGame, boolean success);
+    UserGame updateUserGame(int userId, int gameId, UserGame modifiedUserGame);
 }

@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 public class Game {
 
+    public static final int WORD_LENGTH = 5;
+    public static final int MAX_GUESSES = 6;
+
     public enum Type {
         DAILY,
         RANDOM;

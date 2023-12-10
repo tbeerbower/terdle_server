@@ -5,9 +5,12 @@ import com.techelevator.dao.UserGameDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.*;
 import com.techelevator.service.GameService;
+import com.techelevator.validator.UserGameValidator;
+import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +43,14 @@ public class UserController {
     private final UserDao userDao;
     private final UserGameDao userGameDao;
     private final GameService gameService;
+    private final UserGameValidator userGameValidator;
 
-    public UserController(UserDao userDao, UserGameDao userGameDao, GameService gameService) {
+
+    public UserController(UserDao userDao, UserGameDao userGameDao, GameService gameService, UserGameValidator userGameValidator) {
         this.userDao = userDao;
         this.userGameDao = userGameDao;
         this.gameService = gameService;
+        this.userGameValidator = userGameValidator;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -111,8 +116,17 @@ public class UserController {
     @RequestMapping(path = "/{userId}/games/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@PathVariable int userId, @PathVariable int gameId,
-                           @Valid @RequestBody UserGame modifiedUserGame) {
-        gameService.updateUserGame(userId, gameId, modifiedUserGame);
+                           @Valid @RequestBody UserGame modifiedUserGame,
+                           BindingResult result ) throws NoSuchMethodException, MethodArgumentNotValidException {
+
+        UserGame userGame = new UserGame(userId, gameId, modifiedUserGame.getGuesses());
+        userGameValidator.validate(userGame, result);
+        if (result.hasErrors()) {
+                throw new MethodArgumentNotValidException(
+                        new MethodParameter(this.getClass().getDeclaredMethod("updateGame", int.class, int.class, UserGame.class, BindingResult.class), 2),
+                        result);
+        }
+        gameService.updateUserGame(userId, gameId, userGame);
     }
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
