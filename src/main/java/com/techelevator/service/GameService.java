@@ -47,8 +47,9 @@ public class GameService {
         return userGameDao.getUserGameByUserIdAndGameId(userId, gameId);
     }
 
-    public void updateUserGame(int userId, int gameId, UserGame userGame) {
-        userGameDao.updateUserGame(userId, gameId, userGame, userGame.getGuesses().contains(userGame.getWord()));
+    public void updateUserGame(int userId, int gameId, UserGame updatedUserGame) {
+        userGameDao.updateUserGame(userId, gameId,
+                new UserGame(userGameDao.getUserGameByUserIdAndGameId(userId, gameId), updatedUserGame.getGuesses()));
     }
 
     private synchronized Game getDailyGame(LocalDate date, String word) {

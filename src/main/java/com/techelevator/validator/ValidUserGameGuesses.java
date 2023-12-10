@@ -1,4 +1,4 @@
-package com.techelevator.model;
+package com.techelevator.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
