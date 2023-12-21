@@ -113,6 +113,11 @@ public class UserController {
         return gameService.getUserGame(userId, gameId);
     }
 
+    @RequestMapping(path = "/{userId}/games/{gameId}/analysis", method = RequestMethod.GET)
+    public UserGameAnalysisDto getUserGameAnalysis(@PathVariable int userId, @PathVariable int gameId) {
+        return gameService.getUserGameAnalysis(userId, gameId);
+    }
+
     @RequestMapping(path = "/{userId}/games/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@PathVariable int userId, @PathVariable int gameId,
