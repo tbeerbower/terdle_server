@@ -1,7 +1,6 @@
 package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.techelevator.validator.ValidUserGameGuesses;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ public class UserGame extends Game {
     }
 
     private int userId;
-    @ValidUserGameGuesses
     private final List<String> guesses = new ArrayList<>();
     private boolean success;
 

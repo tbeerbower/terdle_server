@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -12,6 +13,12 @@ import java.io.IOException;
 public class ConstraintViolationHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public void handleConstraintViolationException(ConstraintViolationException exception, ServletWebRequest webRequest) throws IOException {
+        webRequest.getResponse().sendError(HttpStatus.UNPROCESSABLE_ENTITY.value(), exception.getMessage());
+    }
+
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public void handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, ServletWebRequest webRequest) throws IOException {
         webRequest.getResponse().sendError(HttpStatus.UNPROCESSABLE_ENTITY.value(), exception.getMessage());
     }
 }
